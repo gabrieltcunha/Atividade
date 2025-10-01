@@ -112,3 +112,73 @@ body {
 .foto-home {
   width: 550px;                     /* Largura da foto */
 }
+
+.container-icons{
+  position:fixed;                   /* ficar sempre ne tela ao rolar*/
+  bottom: 40px;                     /*distancia parte de baixo da tela*/
+  left: 50%;                        /*fica centralizado no meio da pagina horizontalmente*/
+  transform: translateX(-50%);      /* corrige o deslocamento para ficar exatamente no meio */
+  display: flex;                    /*coloca os icones lado a lado*/
+  gap: 10px;                        /*espaçamento entre os icones*/
+  align-items: center;              /* alinha todos os ícones verticalmente */
+}
+
+.iconwhats {
+  width: 40px;                      /*tamanho da foto */
+}
+
+.iconinsta {
+  width: 50px;                      /*tamanho da foto */
+}
+
+.titulo {
+  color: #155a26;
+  text-align: center;
+  padding-top: 20px;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: #3f9955;
+  border-radius: 30px;
+  padding: 20px;
+  width: 500px;
+  height: 650px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.card img {
+  width: 40px;
+  margin-top: 10px;
+}
+
+.card h3{
+  color: #082b0f;
+  margin-bottom:  10px;
+}
+
+.card p{
+  color: #082b0f;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  cursor:pointer
+}
+
+.card a{
+  text-decoration: none;
+  
+}
