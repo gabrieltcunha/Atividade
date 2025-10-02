@@ -134,6 +134,7 @@ body {
 .titulo {
   color: #155a26;
   text-align: center;
+  padding-bottom: 20px;
   padding-top: 20px;
 }
 .cards {
@@ -147,8 +148,8 @@ body {
   background-color: #3f9955;
   border-radius: 30px;
   padding: 20px;
-  width: 500px;
-  height: 650px;
+  width: 300px;
+  height: 350px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s;
