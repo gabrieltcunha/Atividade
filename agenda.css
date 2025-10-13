@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Define variáveis globais para cores e tamanhos */
 :root {
     /* Cor principal usada em títulos, botões e bordas */
@@ -135,12 +141,19 @@ body {
     color: var(--cor-primaria); /* Cor principal */
 }
 
-/* Células de meia hora */
+/* Células de meia hora (esta é a linha de 30 minutos) */
 .celula-hora {
     height: calc(var(--altura-hora) / 2); /* Metade da altura padrão */
-    border-bottom: 1px dotted var(--cor-borda); /* Borda pontilhada */
+    border-bottom: 1px dotted var(--cor-borda); /* Borda pontilhada por padrão */
     position: relative; /* Permite blocos absolutos */
     cursor: default; /* Cursor padrão */
+}
+
+/* Esta regra seleciona a cada segunda célula (a que marca a hora cheia) */
+/* e troca a borda pontilhada por uma sólida, alinhando com a coluna de tempo. */
+.celula-hora:nth-child(even) {
+    border-bottom-style: solid;
+    border-bottom-color: var(--cor-borda);
 }
 
 /* Bloco de disponibilidade */
@@ -150,7 +163,6 @@ body {
     background-color: var(--cor-disponibilidade); /* Fundo verde claro */
     border: 1px solid #C8E6C9; /* Borda verde */
     border-radius: 4px; /* Cantos arredondados */
-    box-sizing: border-box; /* Inclui borda no tamanho */
     z-index: 5; /* Sobrepõe outros elementos */
     cursor: pointer; /* Cursor de mão */
     padding: 5px; /* Espaço interno */
@@ -179,7 +191,6 @@ body {
     border-radius: 4px; /* Cantos arredondados */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
     z-index: 10; /* Sobrepõe outros elementos */
-    box-sizing: border-box; /* Inclui borda no tamanho */
     font-size: 0.9em; /* Tamanho do texto */
     cursor: pointer; /* Cursor de mão */
     transition: background-color 0.2s; /* Transição suave */
@@ -265,7 +276,6 @@ body {
     padding: 10px; /* Espaço interno */
     margin-top: 5px; /* Espaço acima */
     margin-bottom: 20px; /* Espaço abaixo */
-    box-sizing: border-box; /* Inclui borda no tamanho */
     border: 1px solid #ccc; /* Borda cinza */
     border-radius: 6px; /* Cantos arredondados */
 }
@@ -359,4 +369,36 @@ body {
 /* Botão secundário ao passar o mouse */
 .btn-salvar-secundario:hover {
     background-color: #1565C0; /* Fundo azul escuro */
+}
+
+/* ESTILO PARA O CONTAINER DE LOGIN */
+.auth-container {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #eee;
+}
+
+#btnAuth {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #f44336; /* Cor inicial (vermelho para desconectado) */
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+#authStatus {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    margin-bottom: 0;
 }
