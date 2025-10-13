@@ -3,130 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agenda Raysla Martins</title>
-  <link rel="stylesheet" href="agenda.css">
+  <title>Agendamento - Raysla Martins</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="imagens/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-     <h1 class="titulo-pagina">Minha Agenda</h1>
 
-    <div style="text-align: center; margin-bottom: 20px;">
-        <button id="btnAuth" onclick="handleAuthClick()" style="padding: 10px 20px; font-size: 1em; background-color: #f44336; color: white; border: none; border-radius: 6px; cursor: pointer;">
-            Fazer Login com Google
-        </button>
-        <p id="authStatus" style="margin-top: 10px; color: #888;">Status: Desconectado</p>
+  <header class="barra-navegacao">
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Raysla Martins">
     </div>
+    <nav class="links-navegacao">
+      <a href="home.html">Home</a>
+      <a href="servicos.html">Serviços</a>
+      <a href="planos.html">Planos</a>      
+      <a href="contatos.html">Contatos</a>
+      <a href="agendar.html" class="botao-agendar">Agendar Consulta</a>
+    </nav>
+  </header>
 
-    <div class="container-agenda">
-        <button id="btnAnterior" class="btn-navegacao">&lt;</button>
+  <main>
+    <div class="form-container">
+      <h1 class="titulo">AGENDAMENTO</h1>
 
-        <div class="grade-agenda">
-            <div class="coluna-tempo">
-                <div class="celula-cabecalho"></div>
-                <div class="faixa-tempo">06:00</div>
-                <div class="faixa-tempo">07:00</div>
-                <div class="faixa-tempo">08:00</div>
-                <div class="faixa-tempo">09:00</div>
-                <div class="faixa-tempo">10:00</div>
-                <div class="faixa-tempo">11:00</div>
-                <div class="faixa-tempo">12:00</div>
-                <div class="faixa-tempo">13:00</div>
-                <div class="faixa-tempo">14:00</div>
-                <div class="faixa-tempo">15:00</div>
-                <div class="faixa-tempo">16:00</div>
-                <div class="faixa-tempo">17:00</div>
-                <div class="faixa-tempo">18:00</div>
-            </div>
+      <div id="loading" class="loading-container">
+        <p>Buscando horários disponíveis...</p>
+        <div class="spinner"></div>
+      </div>
 
-            <div id="containerDias" class="container-dias">
-            </div>
+      <form id="form-agendamento-paciente" class="hidden">
+        
+        <div class="form-step" id="step-tipo">
+          <label for="select-tipo">Tipo da consulta:</label>
+          <select id="select-tipo" name="tipo">
+            <option value="" selected disabled>Selecione o tipo de consulta</option>
+            <option value="Consulta">Consulta Presencial</option>
+            <option value="Online">Consulta Online</option>
+            <option value="Bioimpedância">Bioimpedância</option>
+          </select>
         </div>
 
-        <button id="btnProximo" class="btn-navegacao">&gt;</button>
-    </div>
-
-    <div id="modalDisponibilidade" class="modal">
-        <div class="conteudo-modal">
-            <span class="btn-fechar" onclick="fecharModalDisponibilidade()">&times;</span>
-            <h2 id="tituloModalDisponibilidade">Definir Horário de Atendimento</h2>
-            <form id="formDisponibilidade">
-                <input type="hidden" id="dataDisponibilidade" name="data">
-                <input type="hidden" id="idDisponibilidade" name="id">
-
-                <label for="inicioDisponibilidade">Início do Atendimento:</label>
-                <input type="time" id="inicioDisponibilidade" name="inicio" required>
-
-                <label for="fimDisponibilidade">Fim do Atendimento:</label>
-                <input type="time" id="fimDisponibilidade" name="fim" required>
-
-                <label for="cidadeDisponibilidade">Cidade de Atendimento:</label>
-                <select id="cidadeDisponibilidade" name="cidade">
-                    <option value="Lagamar">Lagamar</option>
-                    <option value="Vazante">Vazante</option>
-                </select>
-
-                <div class="acoes-modal">
-                    <button type="submit" id="btnSalvarDisponibilidade">Salvar</button>
-                    <button type="button" id="btnExcluirDisponibilidade" class="btn-excluir" style="display: none;">Excluir Bloco</button>
-                </div>
-            </form>
+        <div class="form-step hidden" id="step-local">
+          <label for="select-local">Local de atendimento:</label>
+          <select id="select-local" name="cidade">
+            <option value="" selected disabled>Selecione o local</option>
+            <option value="Lagamar">Lagamar</option>
+            <option value="Vazante">Vazante</option>
+          </select>
         </div>
-    </div>
-    
-    <div id="modalGerenciarDisponibilidade" class="modal">
-        <div class="conteudo-modal">
-            <span class="btn-fechar" onclick="fecharModalGerenciarDisponibilidade()">&times;</span>
-            <h2 id="tituloGerenciarDisponibilidade">Horários de Atendimento em [Dia]</h2>
-            <div id="listaBlocosDia">
-            </div>
-            <button id="btnNovoBloco" class="btn-salvar-secundario">Adicionar Novo Bloco</button>
+
+        <div class="form-step hidden" id="step-data">
+          <label for="select-data">Datas disponíveis:</label>
+          <select id="select-data" name="data">
+            <option value="" selected disabled>Selecione uma data</option>
+          </select>
         </div>
-    </div>
 
-
-    <div id="modalAgendamento" class="modal">
-        <div class="conteudo-modal">
-            <span class="btn-fechar" onclick="fecharModalAgendamento()">&times;</span>
-            <h2 id="tituloModalAgendamento">Gerenciar Consulta</h2> 
-            <form id="formAgendamento">
-                <input type="hidden" id="idAgendamento" name="id">
-                <input type="hidden" id="dataAgendamento" name="data">
-                <input type="hidden" id="cidadeAgendamento" name="cidade">
-
-                <label for="selecaoHorario">Horário da Consulta:</label>
-                <select id="selecaoHorario" name="inicio" required></select>
-
-                <label for="nome">Nome Completo:</label>
-                <input type="text" id="nome" name="nome" required>
-
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" name="cpf" required>
-
-                <label for="telefone">Telefone:</label>
-                <input type="text" id="telefone" name="telefone">
-                
-                <label for="tipoConsulta">Tipo de Consulta:</label>
-                <select id="tipoConsulta" name="tipo">
-                    <option value="Consulta">Consulta</option>
-                    <option value="Online">Online</option>
-                    <option value="Bioimpedância">Bioimpedância</option>
-                </select>
-                
-                <p>Local: <strong id="localConsultaDisplay"></strong></p>
-
-
-                <div class="acoes-modal">
-                    <button type="submit" id="btnSalvarAgendamento">Salvar</button>
-                    <button type="button" id="btnExcluirAgendamento" class="btn-excluir" style="display: none;">Excluir Consulta</button>
-                </div>
-            </form>
+        <div class="form-step hidden" id="step-horario">
+          <label for="select-horario">Horários disponíveis:</label>
+          <select id="select-horario" name="inicioISO">
+            <option value="" selected disabled>Selecione um horário</option>
+          </select>
         </div>
+
+        <div id="step-dados-pessoais" class="hidden">
+          <div class="form-step">
+            <label for="input-nome">Nome Completo:</label>
+            <input type="text" id="input-nome" name="nome" required>
+          </div>
+          <div class="form-step">
+            <label for="input-cpf">CPF:</label>
+            <input type="text" id="input-cpf" name="cpf" required>
+          </div>
+          <div class="form-step">
+            <label for="input-telefone">Telefone (WhatsApp):</label>
+            <input type="text" id="input-telefone" name="telefone" required>
+          </div>
+        </div>
+
+        <div class="form-step hidden" id="step-concluir">
+          <button type="submit" class="botao-agendar">CONCLUIR AGENDAMENTO</button>
+        </div>
+
+      </form>
+      
+      <div id="mensagem-sucesso" class="hidden confirmacao-sucesso">
+        <h2>Agendamento Confirmado!</h2>
+        <p>Sua consulta foi marcada com sucesso. Você receberá uma confirmação em breve.</p>
+        <p>Obrigado!</p>
+      </div>
+
     </div>
-    <script src="https://accounts.google.com/gsi/client" async defer></script> 
-    <script src="https://apis.google.com/js/api.js"></script> 
-    <script src="agenda.js"></script>
-
-
+  </main>
+  
+  <script src="agendar.js"></script>
 </body>
 </html>

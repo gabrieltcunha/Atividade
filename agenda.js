@@ -1,4 +1,8 @@
+// ====================================================================
+// === CONFIGURAÇÃO GOOGLE CALENDAR API (SUBSTITUA SUA CHAVE AQUI) ===
+// ====================================================================
 
+// ⚠️ SUBSTITUA COM O SEU ID DO CLIENTE REAL
 const CLIENT_ID = '188770703397-16ld6bmal6hp81rskfupkjq0fusp7q74.apps.googleusercontent.com'; 
 const SCOPES = 'https://www.googleapis.com/auth/calendar'; 
 const CALENDAR_ID = 'primary'; 
@@ -19,6 +23,7 @@ const btnAuth = document.getElementById('btnAuth');
 const authStatus = document.getElementById('authStatus');
 
 // Modais e Formulários
+// ... (o resto das variáveis continua igual)
 const modalDisponibilidade = document.getElementById('modalDisponibilidade');
 const formDisponibilidade = document.getElementById('formDisponibilidade');
 const btnExcluirDisponibilidade = document.getElementById('btnExcluirDisponibilidade');

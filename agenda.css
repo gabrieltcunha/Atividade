@@ -1,3 +1,9 @@
+/* ======================================================= */
+/* === CORREÇÃO DE LAYOUT GLOBAL ADICIONADA AQUI === */
+/* Esta regra garante que as bordas e preenchimentos */
+/* sejam incluídos no tamanho total dos elementos, */
+/* resolvendo o problema de alinhamento de 1px. */
+/* ======================================================= */
 *,
 *::before,
 *::after {
