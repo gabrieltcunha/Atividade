@@ -11,13 +11,6 @@
 <body>
      <h1 class="titulo-pagina">Minha Agenda</h1>
 
-    <div style="text-align: center; margin-bottom: 20px;">
-        <button id="btnAuth" onclick="handleAuthClick()" style="padding: 10px 20px; font-size: 1em; background-color: #f44336; color: white; border: none; border-radius: 6px; cursor: pointer;">
-            Fazer Login com Google
-        </button>
-        <p id="authStatus" style="margin-top: 10px; color: #888;">Status: Desconectado</p>
-    </div>
-
     <div class="container-agenda">
         <button id="btnAnterior" class="btn-navegacao">&lt;</button>
 
@@ -40,7 +33,7 @@
             </div>
 
             <div id="containerDias" class="container-dias">
-            </div>
+                </div>
         </div>
 
         <button id="btnProximo" class="btn-navegacao">&gt;</button>
@@ -79,7 +72,7 @@
             <span class="btn-fechar" onclick="fecharModalGerenciarDisponibilidade()">&times;</span>
             <h2 id="tituloGerenciarDisponibilidade">Horários de Atendimento em [Dia]</h2>
             <div id="listaBlocosDia">
-            </div>
+                </div>
             <button id="btnNovoBloco" class="btn-salvar-secundario">Adicionar Novo Bloco</button>
         </div>
     </div>
@@ -123,8 +116,6 @@
             </form>
         </div>
     </div>
-    <script src="https://accounts.google.com/gsi/client" async defer></script> 
-    <script src="https://apis.google.com/js/api.js"></script> 
     <script src="agenda.js"></script>
 
 

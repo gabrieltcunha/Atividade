@@ -1,0 +1,362 @@
+/* Define variáveis globais para cores e tamanhos */
+:root {
+    /* Cor principal usada em títulos, botões e bordas */
+    --cor-primaria: #4CAF50;
+    /* Cor para agendamentos, mais clara */
+    --cor-agendamento: #66BB6A;
+    /* Cor para blocos de disponibilidade, muito clara */
+    --cor-disponibilidade: #E8F5E9;
+    /* Cor de fundo da coluna de horários */
+    --cor-fundo-grade: #F7F7F7;
+    /* Cor padrão do texto */
+    --cor-texto: #444;
+    /* Cor da borda dos elementos */
+    --cor-borda: #E0E0E0;
+    /* Cor da sombra das caixas */
+    --cor-sombra: rgba(0, 0, 0, 0.08);
+    /* Altura de cada bloco de hora */
+    --altura-hora: 50px;
+}
+
+/* Estiliza o corpo da página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Define a fonte principal */
+    margin: 0; /* Remove margens padrão */
+    padding: 20px; /* Adiciona espaçamento interno */
+    background-color: #FFFFFF; /* Define fundo branco */
+    color: var(--cor-texto); /* Usa cor de texto definida na paleta */
+}
+
+/* Estiliza o título da página */
+.titulo-pagina {
+    text-align: center; /* Centraliza o texto */
+    color: var(--cor-primaria); /* Usa cor principal */
+    margin-bottom: 30px; /* Espaço abaixo do título */
+    font-size: 2.8em; /* Tamanho grande para destaque */
+    font-weight: 300; /* Peso da fonte mais leve */
+}
+
+/* Container principal da agenda */
+.container-agenda {
+    display: flex; /* Layout flexível */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    max-width: 1400px; /* Largura máxima */
+    margin: 0 auto; /* Centraliza na página */
+    position: relative; /* Permite posicionamento absoluto de filhos */
+}
+
+/* Botões de navegação da agenda */
+.btn-navegacao {
+    background: none; /* Sem fundo */
+    border: none; /* Sem borda */
+    font-size: 3.5em; /* Ícone grande */
+    cursor: pointer; /* Cursor de mão */
+    color: #AAA; /* Cor padrão do ícone */
+    padding: 0 15px; /* Espaçamento lateral */
+    transition: color 0.3s; /* Transição suave de cor */
+}
+
+/* Botão de navegação ao passar o mouse */
+.btn-navegacao:hover {
+    color: var(--cor-primaria); /* Destaca ao passar o mouse */
+}
+
+/* Grade principal da agenda */
+.grade-agenda {
+    display: flex; /* Layout flexível horizontal */
+    width: 100%; /* Ocupa toda largura disponível */
+    max-width: 1200px; /* Largura máxima */
+    border: 1px solid var(--cor-borda); /* Borda externa */
+    border-radius: 8px; /* Cantos arredondados */
+    overflow: hidden; /* Esconde conteúdo excedente */
+    box-shadow: 0 4px 10px var(--cor-sombra); /* Sombra para destaque */
+}
+
+/* Coluna de horários */
+.coluna-tempo {
+    width: 80px; /* Largura fixa */
+    flex-shrink: 0; /* Não reduz a largura */
+    background-color: var(--cor-fundo-grade); /* Fundo diferenciado */
+    border-right: 1px solid var(--cor-borda); /* Borda à direita */
+}
+
+/* Células de cabeçalho e faixa de tempo */
+.celula-cabecalho, .faixa-tempo {
+    height: var(--altura-hora); /* Altura padrão */
+    line-height: var(--altura-hora); /* Centraliza verticalmente */
+    text-align: center; /* Centraliza texto */
+    border-bottom: 1px solid var(--cor-borda); /* Borda inferior */
+    font-weight: 600; /* Texto em negrito */
+    font-size: 0.9em; /* Tamanho do texto */
+}
+
+/* Faixa de tempo (horários) */
+.faixa-tempo {
+    color: #777; /* Cor mais suave */
+}
+
+/* Container dos dias da semana */
+.container-dias {
+    display: grid; /* Layout em grid */
+    grid-template-columns: repeat(6, 1fr); /* 6 colunas iguais */
+    flex-grow: 1; /* Ocupa espaço restante */
+    background-color: white; /* Fundo branco */
+}
+
+/* Coluna de cada dia */
+.coluna-dia {
+    border-right: 1px solid var(--cor-borda); /* Borda entre os dias */
+    position: relative; /* Permite posicionamento absoluto de filhos */
+}
+.coluna-dia:last-child {
+    border-right: none; /* Remove borda do último dia */
+}
+
+/* Cabeçalho do dia */
+.cabecalho-dia {
+    height: var(--altura-hora); /* Altura do cabeçalho */
+    text-align: center; /* Centraliza texto */
+    padding-top: 0px; /* Espaço superior */
+    border-bottom: 0.5px solid var(--cor-primaria); /* Borda inferior destacada */
+    background-color: #F0FFF0; /* Fundo suave */
+    cursor: pointer; /* Cursor de mão */
+    transition: background-color 0.2s; /* Transição suave */
+}
+
+/* Cabeçalho do dia ao passar o mouse */
+.cabecalho-dia:hover {
+    background-color: #E6F5E6; /* Fundo mais escuro */
+}
+
+/* Data do cabeçalho em destaque */
+.cabecalho-dia .data {
+    font-weight: bold; /* Negrito */
+    color: var(--cor-primaria); /* Cor principal */
+}
+
+/* Células de meia hora */
+.celula-hora {
+    height: calc(var(--altura-hora) / 2); /* Metade da altura padrão */
+    border-bottom: 1px dotted var(--cor-borda); /* Borda pontilhada */
+    position: relative; /* Permite blocos absolutos */
+    cursor: default; /* Cursor padrão */
+}
+
+/* Bloco de disponibilidade */
+.bloco-disponivel {
+    position: absolute; /* Posiciona sobre a célula */
+    width: 98%; /* Quase toda largura */
+    background-color: var(--cor-disponibilidade); /* Fundo verde claro */
+    border: 1px solid #C8E6C9; /* Borda verde */
+    border-radius: 4px; /* Cantos arredondados */
+    box-sizing: border-box; /* Inclui borda no tamanho */
+    z-index: 5; /* Sobrepõe outros elementos */
+    cursor: pointer; /* Cursor de mão */
+    padding: 5px; /* Espaço interno */
+    margin-left: 1%; /* Margem à esquerda */
+    font-size: 0.9em; /* Tamanho do texto */
+    color: var(--cor-primaria); /* Texto verde principal */
+    text-align: center; /* Centraliza texto */
+    overflow: hidden; /* Esconde excesso de conteúdo */
+    transition: background-color 0.2s; /* Transição suave */
+}
+
+/* Bloco de disponibilidade ao passar o mouse */
+.bloco-disponivel:hover {
+    background-color: #DDEEE0; /* Fundo mais escuro */
+    border-color: var(--cor-primaria); /* Borda verde escuro */
+}
+
+/* Bloco de agendamento */
+.agendamento {
+    position: absolute; /* Posiciona sobre a célula */
+    width: 90%; /* Largura menor */
+    background-color: var(--cor-agendamento); /* Fundo verde escuro */
+    color: white; /* Texto branco */
+    padding: 5px; /* Espaço interno */
+    margin-left: 5%; /* Margem à esquerda */
+    border-radius: 4px; /* Cantos arredondados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
+    z-index: 10; /* Sobrepõe outros elementos */
+    box-sizing: border-box; /* Inclui borda no tamanho */
+    font-size: 0.9em; /* Tamanho do texto */
+    cursor: pointer; /* Cursor de mão */
+    transition: background-color 0.2s; /* Transição suave */
+    line-height: 1.2; /* Altura da linha */
+    font-weight: 500; /* Peso do texto */
+    display: flex; /* Layout flexível */
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Bloco de agendamento ao passar o mouse */
+.agendamento:hover {
+    background-color: #4CAF50; /* Fundo verde principal */
+}
+
+/* Container do texto do agendamento */
+.conteudo-agendamento {
+    max-width: 100%; /* Limita largura do texto */
+}
+
+/* Parágrafo do agendamento */
+.conteudo-agendamento p {
+    margin: 0; /* Remove margem padrão */
+    font-weight: bold; /* Texto em negrito */
+    white-space: nowrap; /* Não quebra linha */
+    overflow: hidden; /* Esconde texto excedente */
+    text-overflow: ellipsis; /* Adiciona reticências */
+    max-width: 100%; /* Limita largura do parágrafo */
+}
+
+/* Modal de fundo escuro */
+.modal {
+    display: none; /* Esconde o modal */
+    position: fixed; /* Fixa na tela */
+    z-index: 1000; /* Sobrepõe outros elementos */
+    left: 0; /* Alinha à esquerda */
+    top: 0; /* Alinha ao topo */
+    width: 100%; /* Ocupa toda largura */
+    height: 100%; /* Ocupa toda altura */
+    overflow: auto; /* Permite rolagem */
+    background-color: rgba(0,0,0,0.5); /* Fundo escuro translúcido */
+}
+
+/* Conteúdo do modal */
+.conteudo-modal {
+    background-color: #fefefe; /* Fundo branco */
+    margin: 8% auto; /* Centraliza verticalmente */
+    padding: 25px; /* Espaço interno */
+    border: none; /* Sem borda */
+    border-radius: 10px; /* Cantos arredondados */
+    width: 80%; /* Largura do modal */
+    max-width: 450px; /* Largura máxima */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra forte */
+    position: relative; /* Permite posicionamento absoluto */
+}
+
+/* Botão de fechar modal */
+.btn-fechar {
+    color: #aaa; /* Cor padrão */
+    float: right; /* Alinha à direita */
+    font-size: 28px; /* Tamanho grande */
+    font-weight: bold; /* Negrito */
+}
+
+/* Botão de fechar ao passar o mouse */
+.btn-fechar:hover,
+.btn-fechar:focus {
+    color: #000; /* Destaca ao passar o mouse */
+    text-decoration: none; /* Remove sublinhado */
+    cursor: pointer; /* Cursor de mão */
+}
+
+/* Labels dos formulários do modal */
+#formDisponibilidade label, #formAgendamento label {
+    display: block; /* Cada label em uma linha */
+    margin-top: 10px; /* Espaço acima */
+    font-weight: bold; /* Negrito */
+}
+
+/* Inputs e selects dos formulários do modal */
+#formDisponibilidade input, #formAgendamento input, #formAgendamento select {
+    width: 100%; /* Ocupa toda largura */
+    padding: 10px; /* Espaço interno */
+    margin-top: 5px; /* Espaço acima */
+    margin-bottom: 20px; /* Espaço abaixo */
+    box-sizing: border-box; /* Inclui borda no tamanho */
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 6px; /* Cantos arredondados */
+}
+
+/* Opções desabilitadas do select */
+#selecaoHorario option:disabled {
+    background-color: #F8F8F8; /* Fundo cinza claro */
+    color: #AAA; /* Texto apagado */
+}
+
+/* Área de ações do modal */
+.acoes-modal {
+    margin-top: 20px; /* Espaço acima */
+    text-align: right; /* Alinha à direita */
+}
+
+/* Botões das ações do modal */
+.acoes-modal button {
+    padding: 10px 15px; /* Espaço interno */
+    border: none; /* Sem borda */
+    border-radius: 6px; /* Cantos arredondados */
+    cursor: pointer; /* Cursor de mão */
+    font-size: 1em; /* Tamanho do texto */
+    margin-left: 10px; /* Espaço entre botões */
+    transition: background-color 0.2s; /* Transição suave */
+}
+
+/* Botões de salvar */
+#btnSalvarDisponibilidade, #btnSalvarAgendamento {
+    background-color: var(--cor-primaria); /* Fundo verde */
+    color: white; /* Texto branco */
+    font-weight: 600; /* Negrito */
+}
+#btnSalvarDisponibilidade:hover, #btnSalvarAgendamento:hover {
+    background-color: #388E3C; /* Fundo verde escuro */
+}
+
+/* Botões de excluir */
+#btnExcluirDisponibilidade, #btnExcluirAgendamento {
+    background-color: #D32F2F; /* Fundo vermelho */
+    color: white; /* Texto branco */
+}
+
+/* Bloco de lista de horários */
+.bloco-lista {
+    display: flex; /* Layout flexível */
+    justify-content: space-between; /* Espaço entre itens */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 12px; /* Espaço interno */
+    margin-bottom: 8px; /* Espaço abaixo */
+    background-color: var(--cor-fundo-grade); /* Fundo cinza claro */
+    border-radius: 6px; /* Cantos arredondados */
+    border-left: 5px solid var(--cor-primaria); /* Borda à esquerda verde */
+}
+
+/* Texto forte do bloco de lista */
+.bloco-lista strong {
+    font-size: 1.1em; /* Tamanho do texto */
+}
+
+/* Botão de editar bloco */
+.btn-editar-bloco {
+    padding: 5px 10px; /* Espaço interno */
+    border: none; /* Sem borda */
+    background-color: var(--cor-primaria); /* Fundo verde */
+    color: white; /* Texto branco */
+    border-radius: 4px; /* Cantos arredondados */
+    cursor: pointer; /* Cursor de mão */
+    font-weight: 600; /* Negrito */
+}
+
+/* Botão de editar bloco ao passar o mouse */
+.btn-editar-bloco:hover {
+    background-color: #388E3C; /* Fundo verde escuro */
+}
+
+/* Botão secundário de salvar */
+.btn-salvar-secundario {
+    padding: 10px 15px; /* Espaço interno */
+    border: none; /* Sem borda */
+    border-radius: 6px; /* Cantos arredondados */
+    cursor: pointer; /* Cursor de mão */
+    font-size: 1em; /* Tamanho do texto */
+    margin-top: 15px; /* Espaço acima */
+    background-color: #2196F3; /* Fundo azul */
+    color: white; /* Texto branco */
+    width: 100%; /* Ocupa toda largura */
+    font-weight: 600; /* Negrito */
+}
+
+/* Botão secundário ao passar o mouse */
+.btn-salvar-secundario:hover {
+    background-color: #1565C0; /* Fundo azul escuro */
+}
