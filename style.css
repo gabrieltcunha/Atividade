@@ -272,3 +272,204 @@ body {
     margin-bottom: 15px;
 }
 
+/* ======================================================= */
+/* === SEÇÃO DE SERVIÇOS E PLANOS (ALINHADA E CORRIGIDA) === */
+/* ======================================================= */
+
+.conteudo {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Títulos e textos */
+.secao-servicos h1,
+.secao-planos h1 {
+  color: #155a26;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.secao-servicos p,
+.secao-planos p {
+  color: #082b0f;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* === CONTAINERS DE CARDS === */
+.cards-servicos,
+.cards-planos {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 25px; /* menos espaço entre os cards */
+  flex-wrap: wrap;
+}
+
+/* === CARDS GERAIS === */
+.cards-servicos .card,
+.cards-planos .card,
+.cards-planos .secao-convenios {
+  background-color: #dbe3d8;
+  border-radius: 20px;
+  padding: 25px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cards-servicos .card:hover,
+.cards-planos .card:hover,
+.cards-planos .secao-convenios:hover {
+  transform: translateY(-5px);
+}
+
+.cards-servicos .card h2,
+.cards-planos .card h2,
+.cards-planos .secao-convenios h2 {
+  color: #155a26;
+  margin-bottom: 12px;
+}
+
+.cards-servicos .card p,
+.cards-planos .card p,
+.cards-planos .secao-convenios p {
+  color: #082b0f;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* === LISTAS DOS PLANOS === */
+.cards-planos ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.cards-planos li {
+  color: #082b0f;
+  padding: 4px 0;
+  font-weight: 500;
+}
+
+/* === BOTÕES === */
+.botao-agendar-grande,
+.botao-agendar-pequeno {
+  display: inline-block;
+  background-color: #1b6e2d;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.botao-agendar-grande:hover,
+.botao-agendar-pequeno:hover {
+  background-color: #084e16;
+}
+
+/* === SEÇÃO DE CONVÊNIOS === */
+.cards-planos .secao-convenios {
+  width: 300px;
+  height: auto;
+  margin: 0; /* alinha na mesma linha dos planos */
+}
+
+.cards-planos .secao-convenios h2 {
+  margin-bottom: 8px;
+}
+
+.cards-planos .lista-convenios {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.cards-planos .lista-convenios li {
+  color: #082b0f;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+/* === BOTÃO CENTRAL (para serviços) === */
+.botao-centro {
+  margin-top: 30px;
+}
+
+/* === AJUSTE DOS ÍCONES FIXOS === */
+.container-icons {
+  position: fixed;
+  bottom: 10px; /* antes era 40px — desce os ícones */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* === RESPONSIVIDADE === */
+@media (max-width: 950px) {
+  .cards-planos {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+/* ===== RODAPÉ EXCLUSIVO DA PÁGINA DE SERVIÇOS ===== */
+.rodape-servicos {
+  background-color: #e9e9e9;
+  padding: 25px 0;
+  text-align: center;
+  border-top: 2px solid #666;
+  margin-top: 50px;
+}
+
+.rodape-servicos p {
+  font-size: 14px;
+  color: #082b0f;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.icones-rodape-servicos {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-rodape-servicos {
+  width: 35px;
+  height: 35px;
+  transition: transform 0.2s;
+}
+
+.icon-rodape-servicos:hover {
+  transform: scale(1.1);
+}
+.servicos-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* garante que ocupe toda a altura da tela */
+}
+
+.servicos-page main {
+  flex: 1; /* faz o conteúdo crescer e empurra o rodapé para baixo */
+}
+
+.planos-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.planos-page main {
+  flex: 1; /* faz o conteúdo crescer e empurra o rodapé para baixo */
+}

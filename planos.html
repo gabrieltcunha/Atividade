@@ -3,39 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Raysla Martins</title>
+  <title>Planos | Raysla Martins</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="imagens/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="planos-page">
 
   <header class="barra-navegacao">
     <div class="logo">
       <img src="imagens/logo.png" alt="Logo Raysla Martins">
     </div>
 
-  <nav class="links-navegacao">
+    <nav class="links-navegacao">
       <a href="home.html">Home</a>
       <a href="servicos.html">Serviços</a>
-      <a href="planos.html">Planos</a>      
+      <a href="planos.html" class="ativo">Planos</a>      
       <a href="contatos.html">Contatos</a>
-  <a href="agendar.html" class="botao-agendar">Agendar Consulta</a>
+      <a href="agendar.html" class="botao-agendar">Agendar Consulta</a>
     </nav>
   </header>
 
-  <main>
-    <div class="container-icons">
-        <a href = "https://wa.me/5561993220175" target="_blank">
-        <img src="imagens/icon whats.png" alt = "logo whatsapp" class="iconwhats" />
-        </a>
+  <main class="conteudo">
+    <section class="secao-planos">
+      <h1>Conheça nossos planos</h1>
+      <p>Escolha o plano que melhor se encaixa em suas necessidades:</p>
 
-        <a href = "https://www.instagram.com/rayslamartinsnutri?igsh=MWp1d3QxdXBucTV2NQ==" target="_blank"> <!-- para abrir uma nova pagina -->
-        <img src="imagens/icone insta.png" alt = "logo instagram" class="iconinsta" />
-        </a>
-      </div>
+      <div class="cards-planos">
 
+        <!-- PLANO BRONZE -->
+        <div class="card">
+          <h2>Plano Bronze</h2>
+          <ul>
+            <li>Avaliação nutricional completa</li>
+            <li>Plano alimentar personalizado</li>
+            <li>Dicas práticas para rotina</li>
+            <li>Retorno por WhatsApp em até 7 dias</li>
+          </ul>
+          <p>Perfeito para quem deseja uma avaliação nutricional inicial e orientações rápidas.</p>
+          <a href="agendar.html" class="botao-agendar-pequeno">Agendar Consulta</a>
+        </div>
+
+        <!-- PLANO PRATA -->
+        <div class="card">
+          <h2>Plano Prata</h2>
+          <ul>
+            <li>2 consultas ao mês</li>
+            <li>Plano alimentar ajustado conforme evolução</li>
+            <li>Monitoramento de medidas corporais</li>
+            <li>Suporte semanal por WhatsApp</li>
+          </ul>
+          <p>Ideal para quem busca acompanhamento contínuo para manter foco e disciplina.</p>
+          <a href="agendar.html" class="botao-agendar-pequeno">Agendar Consulta</a>
+        </div>
+
+        <!-- CONVÊNIOS -->
+        <div class="secao-convenios">
+          <h2>Convênios</h2>
+          <p>Temos convênios parceiros para melhor lhe atender:</p>
+          <ul class="lista-convenios">
+            <li>Unimed</li>
+            <li>Bradesco Saúde</li>
+            <li>CASSI</li>
+          </ul>
+        </div>
+
+      </div> <!-- fim dos cards-planos -->
+    </section>
   </main>
+
+  <footer class="rodape-servicos">
+    <p>&copy; 2025 Raysla Martins | Todos os direitos reservados.</p>
+    <div class="icones-rodape-servicos">
+      <a href="https://wa.me/5561993220175" target="_blank">
+        <img src="imagens/icon whats.png" alt="WhatsApp" class="icon-rodape-servicos" />
+      </a>
+      <a href="https://www.instagram.com/rayslamartinsnutri?igsh=MWp1d3QxdXBucTV2NQ==" target="_blank">
+        <img src="imagens/icone insta.png" alt="Instagram" class="icon-rodape-servicos" />
+      </a>
+    </div>
+  </footer>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Raysla Martins</title>
+  <title>Serviços | Raysla Martins</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="imagens/logo.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
@@ -15,27 +15,49 @@
       <img src="imagens/logo.png" alt="Logo Raysla Martins">
     </div>
 
-  <nav class="links-navegacao">
+    <nav class="links-navegacao">
       <a href="home.html">Home</a>
-      <a href="servicos.html">Serviços</a>
+      <a href="servicos.html" class="ativo">Serviços</a>
       <a href="planos.html">Planos</a>      
       <a href="contatos.html">Contatos</a>
-  <a href="agendar.html" class="botao-agendar">Agendar Consulta</a>
+      <a href="agendar.html" class="botao-agendar">Agendar Consulta</a>
     </nav>
   </header>
 
-  <main>
-    <div class="container-icons">
-        <a href = "https://wa.me/5561993220175" target="_blank">
-        <img src="imagens/icon whats.png" alt = "logo whatsapp" class="iconwhats" />
-        </a>
+  <main class="conteudo">
+    <section class="secao-servicos">
+      <h1>Quais nossos serviços?</h1>
+      <p>Conheça os serviços oferecidos pela nutricionista:</p>
 
-        <a href = "https://www.instagram.com/rayslamartinsnutri?igsh=MWp1d3QxdXBucTV2NQ==" target="_blank"> <!-- para abrir uma nova pagina -->
-        <img src="imagens/icone insta.png" alt = "logo instagram" class="iconinsta" />
-        </a>
+      <div class="cards-servicos">
+        <div class="card">
+          <h2>Acompanhamento nutricional</h2>
+          <p>Monitoramento completo para avaliar a alimentação, orientar hábitos saudáveis e realizar ajustes no plano alimentar conforme a evolução do paciente.</p>
+        </div>
+
+        <div class="card">
+          <h2>Avaliação da composição corporal</h2>
+          <p>Análise completa da proporção de músculos, gordura, ossos e água no corpo, auxiliando na compreensão do estado nutricional e orientando o cuidado com a saúde.</p>
+        </div>
       </div>
 
-  </main>
+      <div class="botao-centro">
+        <a href="agendar.html" class="botao-agendar-grande">Agendar Consulta</a>
+      </div>
+    </section>
 
+  <footer class="rodape-servicos">
+  <p>&copy; 2025 Raysla Martins | Todos os direitos reservados.</p>
+  <div class="icones-rodape-servicos">
+    <a href="https://wa.me/5561993220175" target="_blank">
+      <img src="imagens/icon whats.png" alt="WhatsApp" class="icon-rodape-servicos" />
+    </a>
+    <a href="https://www.instagram.com/rayslamartinsnutri?igsh=MWp1d3QxdXBucTV2NQ==" target="_blank">
+      <img src="imagens/icone insta.png" alt="Instagram" class="icon-rodape-servicos" />
+    </a>
+  </div>
+</footer>
+
+  </main>
 </body>
 </html>
