@@ -1,4 +1,36 @@
+// ====================================================================
+// === FUNÇÃO DE VALIDAÇÃO DE CPF ===
+// ====================================================================
+function validaCPF(cpf) {
+  cpf = String(cpf).replace(/[^\d]+/g, '');
+  if (cpf.length !== 11) return false;
+  if (/^(\d)\1+$/.test(cpf)) return false; // Verifica se não são 11 dígitos iguais
 
+  let soma = 0;
+  let resto;
+
+  for (let i = 1; i <= 9; i++) {
+    soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+  soma = 0;
+  for (let i = 1; i <= 10; i++) {
+    soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf.substring(10, 11))) return false;
+
+  return true;
+}
+
+
+// ====================================================================
+// === API URL ===
+// ====================================================================
 const API_URL = 'https://script.google.com/macros/s/AKfycbwr-9iMV6ROUTOVHwyb6tnntj9ZzVtANSQJVIyang5Pyd5WUDi5HCImmS8wCL_4j7W1/exec';
 
 // ====================================================================
@@ -102,7 +134,7 @@ function populateDatas(tipoConsulta, local) {
         const option = document.createElement('option');
         const dataObj = new Date(dia + 'T12:00:00'); // Adiciona T12 para evitar problemas de fuso
         option.value = dia;
-        option.textContent = dataObj.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
+        option.textContent = dataObj.toLocaleString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
         selectData.appendChild(option);
     });
 }
@@ -185,40 +217,100 @@ selectHorario.addEventListener('change', () => {
     }
 });
 
-// 5. Quando o FORMULÁRIO é enviado
+// 5. Quando o FORMULÁRIO é enviado (COM LÓGICA DE VALIDAÇÃO E REMARCAÇÃO)
 form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const btnSubmit = stepConcluir.querySelector('button');
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = 'ENVIANDO...';
+  event.preventDefault();
+  
+  const btnSubmit = stepConcluir.querySelector('button');
+  const dadosFormulario = new FormData(form);
+  const dados = Object.fromEntries(dadosFormulario.entries());
 
-    const formData = new FormData(form);
-    const dados = Object.fromEntries(formData.entries());
-    
-    // No modo online, o local pode não ter sido selecionado. Pegamos do horário.
-    if (!dados.cidade) {
-        const selectedOption = selectHorario.options[selectHorario.selectedIndex];
-        dados.cidade = allSlotsData[selectData.value].find(slot => slot.iso === selectedOption.value).cidade;
+  // --- ETAPA 1: VALIDAÇÃO DO CPF ---
+  const cpfInput = document.getElementById('input-cpf');
+  if (!validaCPF(dados.cpf)) {
+    alert('CPF inválido. Por favor, verifique os dados.');
+    cpfInput.focus(); // Foca no campo de CPF
+    return; // Para a submissão
+  }
+
+  // Desativa o botão
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'ENVIANDO...';
+
+  // No modo online, o local pode não ter sido selecionado. Pegamos do horário.
+  if (!dados.cidade) {
+    const selectedOption = selectHorario.options[selectHorario.selectedIndex];
+    dados.cidade = allSlotsData[selectData.value].find(slot => slot.iso === selectedOption.value).cidade;
+  }
+
+  // --- ETAPA 2: LÓGICA DE TENTATIVA/ERRO/REMARCAÇÃO ---
+  try {
+    // TENTATIVA 1: Envia o agendamento normal
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(dados),
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    });
+
+    const resultado = await response.json(); // Voltamos a usar .json()
+
+    // CASO A: SUCESSO DE PRIMEIRA (NOVO AGENDAMENTO)
+    if (resultado.success) {
+      form.classList.add('hidden');
+      successMessage.classList.remove('hidden');
+      return; // Sucesso, fim do processo.
     }
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            body: JSON.stringify(dados),
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        });
+    // CASO B: ERRO 'CPF_EXISTS' (COM A CORREÇÃO)
+    // Usamos .includes() para garantir que funcione mesmo com espaços invisíveis
+    if (resultado.error && resultado.error.includes('CPF_EXISTS')) {
+      
+      const dataAntiga = new Date(resultado.dataAntiga).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+      const dataNova = new Date(dados.inicioISO).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 
-        const resultado = await response.json();
-        if (resultado.success) {
-            form.classList.add('hidden');
-            successMessage.classList.remove('hidden');
-        } else {
-            throw new Error(resultado.error || 'Erro desconhecido ao agendar.');
-        }
-    } catch (error) {
-        console.error('Erro ao submeter agendamento:', error);
-        alert('Não foi possível completar o agendamento. Verifique seus dados e tente novamente.');
+      const confirmarRemarcacao = confirm(
+        `Já existe uma consulta para este CPF no dia ${dataAntiga}.\n\nDeseja REMARCAR esta consulta para a nova data (${dataNova})?`
+      );
+
+      // Se o usuário NÃO confirmar, reativamos o formulário.
+      if (!confirmarRemarcacao) {
         btnSubmit.disabled = false;
         btnSubmit.textContent = 'CONCLUIR AGENDAMENTO';
+        return; // Fim do processo.
+      }
+
+      // Se o usuário CONFIRMAR, faremos a TENTATIVA 2
+      btnSubmit.textContent = 'REMARCANDO...';
+      
+      // Adiciona os dados necessários para forçar a remarcação
+      dados.forceUpdate = true;
+      dados.eventIdToUpdate = resultado.eventId;
+
+      const responseRemarcacao = await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify(dados),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      });
+
+      const resultadoRemarcacao = await responseRemarcacao.json();
+
+      if (resultadoRemarcacao.success) {
+        form.classList.add('hidden');
+        successMessage.querySelector('h2').textContent = 'Agendamento Remarcado!';
+        successMessage.querySelector('p').textContent = 'Sua consulta foi remarcada com sucesso.';
+        successMessage.classList.remove('hidden');
+      } else {
+        throw new Error(resultadoRemarcacao.error || 'Erro ao remarcar.');
+      }
+    } else {
+      // Outros erros vindos do back-end
+      throw new Error(resultado.error || 'Erro desconhecido ao agendar.');
     }
+
+  } catch (error) {
+    console.error('Erro ao submeter agendamento:', error);
+    alert(`Não foi possível completar o agendamento. Tente novamente ou entre em contato.`);
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'CONCLUIR AGENDAMENTO';
+  }
 });
